@@ -123,7 +123,9 @@ public class Manager
         	var vgpu = new VGpuSimple(GPU_MIPS, VGPU_CORES);
         	vgpu.setGddram(512).setBw(1000);
             //Uses a CloudletSchedulerTimeShared by default to schedule Cloudlets
-            var vm = new GpuVmSimple(HOST_MIPS, VM_PES, vgpu, "");
+        	final double DOUBLE_HOST_MIPS = HOST_MIPS;
+        	long LONG_VM_PES = VM_PES;
+            var vm = new GpuVmSimple(DOUBLE_HOST_MIPS, LONG_VM_PES, vgpu, "");
             vm.setRam(512).setBw(1000).setSize(10_000);
             vmList.add(vm);
         }
