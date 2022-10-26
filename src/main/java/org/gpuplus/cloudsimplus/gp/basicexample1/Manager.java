@@ -18,6 +18,8 @@ import org.cloudbus.cloudsim.gp.resources.Gpu;
 import org.cloudbus.cloudsim.gp.resources.GpuSimple;
 //import org.cloudbus.cloudsim.gp.cloudlets.gputasks.GpuTask;
 import org.cloudbus.cloudsim.gp.cloudlets.gputasks.GpuTaskSimple;
+import org.cloudbus.cloudsim.gp.videocards.Videocard;
+import org.cloudbus.cloudsim.gp.videocards.VideocardSimple;
 
 import org.cloudbus.cloudsim.core.CloudSim;
 import org.cloudbus.cloudsim.resources.Pe;
@@ -98,14 +100,17 @@ public class Manager
             //Uses a PeProvisionerSimple by default to provision PEs for VMs
             peList.add(new PeSimple(HOST_MIPS));
         }
+        
         for (int i = 0; i < HOST_GPUS; i++) {
         	gpuList.add(createGpu());
         }
+        
+        final var videocard = new VideocardSimple (gpuList);
         /*
         Uses ResourceProvisionerSimple by default for RAM and BW provisioning
         and VmSchedulerSpaceShared for VM scheduling.
         */
-        return new GpuHostSimple(HOST_RAM, HOST_BW, HOST_STORAGE, peList, gpuList);
+        return new GpuHostSimple(HOST_RAM, HOST_BW, HOST_STORAGE, peList, videocard);
     }
     
     private GpuSimple createGpu () {
